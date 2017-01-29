@@ -4,8 +4,9 @@ A plugin for Craft CMS that allows you to retrieve your Instagram feed.
 ## Installation
 Upload the instagramfeed/ directory to your plugins/ directory.
 
-Go to plugins and install/enable Instagram Feed
-Go to settings and enter your Instagram user id and access token
+Go to plugins and install/enable Instagram Feed.
+
+Next, go to settings and enter your Instagram user id and access token.
 
 
 ## Usage
