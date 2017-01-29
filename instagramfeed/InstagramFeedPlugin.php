@@ -31,7 +31,7 @@ class InstagramFeedPlugin extends BasePlugin
 
 	public function getPluginUrl()
 	{
-		return 'https://github.com/pixelandtonic/ContactForm';
+		return 'https://github.com/phptiny/craft-instagram-feed';
 	}
 
 	public function getDocumentationUrl()
