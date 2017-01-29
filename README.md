@@ -11,8 +11,9 @@ Next, go to settings and enter your Instagram user id and access token.
 
 ## Usage
 instagramfeed has two available methods for you to call.
-
-getFeed(int numberOfPostsToRetrieve)
+```
+getFeed(int $numberOfPostsToRetrieve)
+```
 
 returns a multidimensional array of your instagram posts. Each post has four elements you can access.
 - link (the link to your instagram post)
@@ -27,3 +28,8 @@ returns a multidimensional array of your instagram posts. Each post has four ele
     {{ image.comments }}
 {% endfor %}
 ```
+
+```
+isConnected()
+```
+Returns true if Instagram Feed succesfully connected to your instagram account
