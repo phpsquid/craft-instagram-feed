@@ -1,0 +1,43 @@
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting) -%}
+	{{ "This is being overridden by the {setting} config setting in your contactform.php config file."|t({
+		setting: setting
+	})|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+{{ forms.textField({
+	first:        true,
+	label:        "Instagram User ID"|t,
+	required:     true,
+	id:           'userId',
+	name:         'userId',
+	instructions: "This is your user ID"|t,
+	value:        settings.userId,
+	autofocus:    true,
+	disabled:     (craft.config.get('userId', 'instagramfeed') is not sameas(null)),
+	warning:      (craft.config.get('userId', 'instagramfeed') is not sameas(null)) ? configWarning('userId'),
+	errors:       settings.getErrors('userId')
+}) }}
+
+{{ forms.textField({
+	first:        true,
+	label:        "Instagram Access Token"|t,
+	required:     true,
+	id:           'accessToken',
+	name:         'accessToken',
+	instructions: "This is your access token"|t,
+	value:        settings.accessToken,
+	autofocus:    true,
+	disabled:     (craft.config.get('accessToken', 'instagramfeed') is not sameas(null)),
+	warning:      (craft.config.get('accessToken', 'instagramfeed') is not sameas(null)) ? configWarning('accessToken'),
+	errors:       settings.getErrors('accessToken')
+}) }}
+
+{% if craft.instagramfeed.isConnected() %}
+<p><span class="status live"></span> Successfully Connected</p>
+{% else %}
+<p><span class="status" style="background-color: #e73737;"></span> Not Connected</p>
+{% endif %}
