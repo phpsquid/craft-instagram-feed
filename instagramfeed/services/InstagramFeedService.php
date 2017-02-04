@@ -25,7 +25,7 @@ class InstagramFeedService extends BaseApplicationComponent
 		
 		$result = json_decode($result);
 		
-		if ( ! $result ) {
+		if ( ! $result || ! isset($result->data) ) {
 			return $images;
 		}
 		
