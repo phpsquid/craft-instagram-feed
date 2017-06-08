@@ -20,12 +20,14 @@ returns a multidimensional array of your instagram posts. Each post has four ele
 - url (the url of the image)
 - likes (the number of likes the post recieved)
 - comments (the number of comments the post recieved)
+- video (the url of the video, if exists)
 ```
 {% for image in craft.instagramfeed.getFeed(8) %}
     {{ image.link }}
     {{ image.url }}
     {{ image.likes }}
     {{ image.comments }}
+    {{ image.video }}
 {% endfor %}
 ```
 
