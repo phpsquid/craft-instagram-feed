@@ -10,7 +10,7 @@ class InstagramFeedService extends BaseApplicationComponent
 		$settings = craft()->plugins->getPlugin('instagramfeed')->getSettings();
 		
 		// array to be returned
-		$images = array();
+		$instafeed = array();
 		
 		// build url for curl request
 		$url = "https://api.instagram.com/v1/users/$settings->userId/media/recent/?access_token=$settings->accessToken&count=$limit";
@@ -24,13 +24,28 @@ class InstagramFeedService extends BaseApplicationComponent
 		curl_close($ch);
 		
 		$result = json_decode($result);
-		
+
 		if ( ! $result || ! isset($result->data) ) {
-			return $images;
+			return $instafeed;
 		}
-		
+
+
+		// Get user details 
+		// Outside images loop to avoid duplication
+		// Store them in user_details
+		// You could get the id if needed
+		// Use it this way
+		// {{ instagramfeed.user_details.username }}
+		$instafeed['user_details'] = array(
+			'username' => $result->data['0']->user->username,
+			'profile_picture' => $result->data['0']->user->profile_picture,
+		);
+
+		// Then store images
+		// Use it this way
+		// {% for image in instagramfeed.images %}
 		foreach ($result->data as $row) {
-			$images[] = array(
+			$instafeed['images'][] = array(
 				'url' => $row->images->standard_resolution->url,
 				'link' => $row->link,
 				'likes' => $row->likes->count,
@@ -38,7 +53,7 @@ class InstagramFeedService extends BaseApplicationComponent
 			);
 		}
 
-		return $images;
+		return $instafeed;
 	}
 	
 	// returns true if the connection to instagram is working
